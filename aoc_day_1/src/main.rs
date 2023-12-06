@@ -45,20 +45,17 @@ fn part_2(stdin_iterator: &mut io::Lines<io::StdinLock>) {
     while let Some(Ok(line)) = stdin_iterator.next() {
         let mut v = vec![];
         let mut acc = String::new();
-        let mut chars = line.as_bytes();
+        let chars = line.as_bytes();
 
         let mut start = 0;
-        let mut end = line.len() - 1;
 
         while start <= line.len() - 1 {
             let c_start = chars[start] as char;
-            let c_end = chars[end] as char;
             if let Some(n) = c_start.to_digit(10) {
                 v.push(n.to_string());
                 acc.clear();
             } else {
                 if acc.is_empty() {
-                    // println!("{}",c_start);
                     if c_start == 'o'
                         || c_start == 't'
                         || c_start == 'f'
@@ -66,11 +63,9 @@ fn part_2(stdin_iterator: &mut io::Lines<io::StdinLock>) {
                         || c_start == 'e'
                         || c_start == 'n'
                     {
-                        // println!("{}",c_start);
                         acc.push(c_start);
                     }
                 }
-                // println!("{} {}",start,acc.len());
 
                 if acc.len() == 1 {
                     if acc == "o" && c_start == 'n' {
@@ -100,7 +95,6 @@ fn part_2(stdin_iterator: &mut io::Lines<io::StdinLock>) {
                 }
 
                 if acc.len() == 2 {
-                    // println!("{} {}", acc, c_start);
                     if acc == "on" && c_start == 'e' {
                         acc.push(c_start);
                     } else if acc == "tw" && c_start == 'o' {
@@ -158,14 +152,10 @@ fn part_2(stdin_iterator: &mut io::Lines<io::StdinLock>) {
                     v.push(digit.to_string());
                     let acc_len = acc.len();
                     acc.clear();
-                    // if start == line.len() - 2 {
-                    //     break;
-                    // }
                     start = start - (acc_len - 1);
                 }
             }
             start += 1;
-            // end -= 1;
         }
 
         println!("{:?}", v);
